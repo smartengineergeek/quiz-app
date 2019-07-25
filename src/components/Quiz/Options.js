@@ -14,10 +14,9 @@ const Option = props => (
 )
 
 const Options = props => {
-    console.log(props)
     return(
         <Container>
-            {props.options.map((option, index) => <Option option={option} clickHandler={props.clickHandler} />)}
+            {props.options.map((option, index) => <Option key={index} option={option} clickHandler={props.clickHandler} />)}
         </Container>
     )
 }

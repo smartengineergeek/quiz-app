@@ -14,6 +14,5 @@ export default async function fetchService(category){
     .finally(function(){
         // always executed
     })
-    console.log({ data, error })
     return { data, error };
 }

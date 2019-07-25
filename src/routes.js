@@ -7,8 +7,8 @@ import Quiz from './containers/Quiz';
 
 const Routes = (props) => (
     <Switch>
-        <Route exact path="/"  component={Home} />
-        <Route path="/quiz"  component={Quiz} />
+        <Route path="/home"  component={Home} />
+        <Route exact path="/"  component={Quiz} />
     </Switch>
 )
 
