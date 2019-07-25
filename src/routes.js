@@ -1,8 +1,9 @@
-import React from 'react'
-import { Route, Switch } from 'react-router-dom'
+import React from 'react';
+import { Route, Switch } from 'react-router-dom';
 
-import Home from './containers/Home'
-import Quiz from './containers/Quiz'
+import Home from './containers/Home';
+import Quiz from './containers/Quiz';
+// import Test from './containers/Test'
 
 const Routes = (props) => (
     <Switch>

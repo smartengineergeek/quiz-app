@@ -1,11 +1,11 @@
 import axios from 'axios';
 
-export default function fetchService(category){
+export default async function fetchService(category){
     let url = 'https://opentdb.com/api.php?amount=10&difficulty=hard&type=multiple&category='+category;
     let data = null;let error = { bool: false, message: ''};
-    axios.get(url)
+    await axios.get(url)
     .then(function(response){
-        data = response;
+        data = response.data;
     })
     .catch(function(err){
         error = { bool: true, message: err.message};
@@ -14,5 +14,6 @@ export default function fetchService(category){
     .finally(function(){
         // always executed
     })
+    console.log({ data, error })
     return { data, error };
 }

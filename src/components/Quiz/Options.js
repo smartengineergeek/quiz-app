@@ -1,19 +1,27 @@
 import React from 'react'
-// import styled from 'styled-components'
+import styled from 'styled-components'
+
+const Container = styled.div`
+    display: flex;
+    flex-direction: row;
+`
 
 const Option = props => (
-    <div onClick={() => props.clickHandler(props.option)}>
+    <Container onClick={() => props.clickHandler(props.option)} >
         <input type="checkbox" />
         <div>{props.option}</div>
-    </div>
+    </Container>
 )
 
-const Options = props => (
-    <div>
-        {
-            props.options.map((option, index) => <Option option={option} clickHandler={props.clickHandler} />)
-        }
-    </div>
-)
+const Options = props => {
+    console.log(props)
+    return(
+        <Container>
+            {props.options.map((option, index) => <Option option={option} clickHandler={props.clickHandler} />)}
+        </Container>
+    )
+}
 
 export default Options;
+
+
