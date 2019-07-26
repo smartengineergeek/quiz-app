@@ -1,0 +1,6 @@
+A React Multiple Choice Quiz App
+See it deployed here: https://pacific-retreat-29989.herokuapp.com/.
+
+Developing the Project
+
+This was created as a study experiment for campers at Free Code Camp using React, Redux, and Node  |  View the source on GitHub

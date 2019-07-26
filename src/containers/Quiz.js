@@ -5,6 +5,7 @@ import fetchService from '../services/fetchService'
 import Options from '../components/Quiz/Options'
 import Button from '../components/Button'
 import * as Result from '../components/Result'
+import './style.css';
 
 function Quiz(props) {
   const [questionNum, setQuestionNum] = useState(0);
@@ -45,7 +46,28 @@ function Quiz(props) {
     console.log(options)
   return (
     <div className="quiz-app">
-    { responseData === null ? <div>No data found</div>: 
+       { responseData === null ? <div>No data found</div>: 
+      <div className="main-box">
+        <div className="question-container">
+          <div className="ques-num">Question {result/responseData.data.results.length}</div>
+            {parse(responseData.data.results[questionNum].question)}            
+        </div>  
+        <Options 
+          options={options} 
+          clickHandler={clickHandler}    
+          result={result}
+        />
+        {result !== '' ? result ? <Result.Success score={score} />: <Result.Failure score={score} />: null}
+        <Button clicked={nextBtnClickHandler} />                          
+      </div>
+      }
+    </div>
+  );
+}
+
+export default Quiz;
+
+    /* { responseData === null ? <div>No data found</div>: 
         <>
         <div>
         Q.{parse(responseData.data.results[questionNum].question)}
@@ -60,9 +82,4 @@ function Quiz(props) {
         <Button clicked={nextBtnClickHandler} />                
         </div>
         </>
-    }
-    </div>
-  );
-}
-
-export default Quiz;
+    } */

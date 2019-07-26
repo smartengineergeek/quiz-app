@@ -1,0 +1,36 @@
+.quiz-app .main-box{
+    height: 200px;
+    width: 1000px;
+    border: solid 1px lightgray;
+}
+.quiz-app .question-container{
+    height: 50px;
+    width: 550px;
+    border: solid 1px blueviolet;
+}
+.quiz-app .question-container .ques-num{
+    height: 20px;
+    width: 100px;
+    border: solid 1px blueviolet;
+    text-align: center;
+    display: inline-block;
+}
+.quiz-app .symbol{
+    border-right: solid 1px blueviolet;
+    height: 50px;
+    width: 20px;
+}
+.quiz-app .flex-row{
+    display: flex;
+    flex-direction: row;
+}
+.quiz-app .option{
+    height: 50px;
+    width: 300px;
+    border: solid 1px blueviolet;
+}
+.quiz-app .options{
+    padding: 10px; 
+    display: flex;
+    flex-wrap: wrap;
+}

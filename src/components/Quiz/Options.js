@@ -1,29 +1,27 @@
 import React from 'react'
-import styled from 'styled-components'
+
+import './style.css';
 
 const uuidv4 = require('uuid/v4');
 
-const Container = styled.div`
-    display: flex;
-    flex-direction: row;
-`
+const symbols = ["A", "B", "C", "D"];
 
 const Option = props => (
-    <Container onClick={() => props.clickHandler(props.option)} >
-        <input type="checkbox"  />
+    <div className="option flex-wrap" onClick={() => props.clickHandler(props.option)} >
+        <div className="symbol">{symbols[props.index]}</div>
         <div>{props.option}</div>
-    </Container>
+    </div>
 )
 
 const Options = props => {
     return(
-        <Container>
-            {props.options.map(option => {
+        <div className="flex-row options">
+            {props.options.map((option, index) => {
                 let uniqueNumber = uuidv4();             
-                return( <Option key={uniqueNumber} option={option} clickHandler={props.clickHandler} />)
+                return( <Option key={uniqueNumber} index={index} option={option} clickHandler={props.clickHandler} />)
             })
             }
-        </Container>
+        </div>
     )
 }
 
