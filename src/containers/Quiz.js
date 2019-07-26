@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { withRouter } from 'react-router-dom'
 import parse from 'html-react-parser';
 
 import fetchService from '../services/fetchService'
@@ -23,7 +22,6 @@ function Quiz(props) {
       fetchData();
   }, []);
   function clickHandler(option){
-    console.log(option)
     if(option === responseData.data.results[questionNum].correct_answer)  {
       setResult(true);
       setScore(score+1);
@@ -32,8 +30,19 @@ function Quiz(props) {
   }
   function nextBtnClickHandler(){
     if(questionNum === 11)  window.location.href='/';
-    else setQuestionNum(questionNum+1);
+    else {
+      setQuestionNum(questionNum+1);
+      setResult('');
+    }
   }
+  let options = [];
+  if(responseData !== null){
+    options.push(responseData.data.results[questionNum].correct_answer);
+    responseData.data.results[questionNum].incorrect_answers.forEach(datum => {
+      options.push(datum);
+    })
+  }  
+    console.log(options)
   return (
     <div className="quiz-app">
     { responseData === null ? <div>No data found</div>: 
@@ -43,11 +52,11 @@ function Quiz(props) {
         </div>
         <div>
         <Options 
-            options={[responseData.data.results[questionNum].correct_answer, ...responseData.data.results[questionNum].incorrect_answers]} 
+            options={options} 
             clickHandler={clickHandler}    
             result={result}
         />
-        {result ? <Result.Success score={score} />: <Result.Failure score={score} />}
+        {result !== '' ? result ? <Result.Success score={score} />: <Result.Failure score={score} />: null}
         <Button clicked={nextBtnClickHandler} />                
         </div>
         </>
