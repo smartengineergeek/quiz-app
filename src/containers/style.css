@@ -1,36 +1,84 @@
 .quiz-app .main-box{
-    height: 200px;
+    height: 300px;
     width: 1000px;
     border: solid 1px lightgray;
+    /* margin: 0 auto; */
+    top: 20%;
+    left: 10%;
+    position: fixed;
 }
 .quiz-app .question-container{
     height: 50px;
-    width: 550px;
-    border: solid 1px blueviolet;
+    width: 900px;
+    color: #fff;
+    background-color: blueviolet;
+    display: flex;
+    flex-direction: column;
+    padding: 50px;
 }
 .quiz-app .question-container .ques-num{
-    height: 20px;
-    width: 100px;
-    border: solid 1px blueviolet;
+    height: 200px;
+    width: 200px;
+    font-size: 25px;
+    align-self: center;
     text-align: center;
     display: inline-block;
+    color: #000;
+    background-color: #fff;
+}
+.quiz-app .question-container .ques-text{
+    align-self: center;
+    font-size: 20px;
+    padding-top: 10px;
 }
 .quiz-app .symbol{
-    border-right: solid 1px blueviolet;
     height: 50px;
     width: 20px;
+    color: #fff;
+    background-color: blueviolet;
+    text-align: center;
 }
-.quiz-app .flex-row{
+/* .quiz-app .flex-row{
     display: flex;
     flex-direction: row;
-}
+} */
 .quiz-app .option{
-    height: 50px;
+    /* height: 50px;
     width: 300px;
-    border: solid 1px blueviolet;
+    border: solid 1px blueviolet; */
+    align-content: stretch;
+    display: flex;
+    flex-direction: inherit;
+    margin-top: 10px;
+    cursor: pointer;
 }
 .quiz-app .options{
     padding: 10px; 
     display: flex;
     flex-wrap: wrap;
+    /* justify-content: space-between; */
+}
+.quiz-app .options>div {
+    flex: 0 50%;
+    box-sizing:border-box
+}
+.quiz-app .option-text{
+    text-align: center;
+    border: solid 1px blueviolet;
+    padding: 10px;
+}
+.result-next-div{
+    display: flex;
+    justify-content: space-between;
+}
+.quiz-app .options .success{
+    background-color: green;
+    color: #fff;
+}
+.quiz-app .options .failure{
+    background-color: red;
+    color: #fff;
+}
+.quiz-app .no-click{
+    pointer-events: none;
 }

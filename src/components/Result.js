@@ -4,18 +4,24 @@ import styled from 'styled-components'
 const Pass = styled.div`
     background-color: green;
     color: #fff;
-    height: 50px;
-    width: 200px;
+    height: 30px;
+    width: 500px;
     border: solid 1px #fff;
     border-radius: 10px;
+    margin-top: 20px;
+    text-align: center;
+    padding-top: 10px;
 ` 
 const Fail = styled.div`
-    background-color: red;
+    background-color: indianred;
     color: #fff;
-    height: 50px;
-    width: 200px;
+    height: 30px;
+    width: 500px;
     border: solid 1px #fff;
     border-radius: 10px;
+    margin-top: 20px;
+    text-align: center;
+    padding-top: 10px;
 ` 
 const Success = props => <Pass>Answer is correct, your score is {props.score}</Pass>
 
