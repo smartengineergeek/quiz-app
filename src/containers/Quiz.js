@@ -14,11 +14,11 @@ function Quiz(props) {
   const [responseData, setResponseData] = useState(null);
   const [result, setResult] = useState('');
   const [score, setScore] = useState(0);
-  // let searchParams = new URLSearchParams(props.location.search);  
-  // let id = searchParams.get('id');
   useEffect(() => {
       async function fetchData(){
-        let data = await fetchService(9);
+        let searchParams = new URLSearchParams(props.location.search);  
+        let id = searchParams.get('id');      
+        let data = await fetchService(id);
         setResponseData(data)
       }
       fetchData();
@@ -52,7 +52,7 @@ function Quiz(props) {
       let option = { "id": "id"+index, "isCorrect": false, "value": datum}
       options.push(option);
     })
-    //options = getShuffledArr(options)
+    options = getShuffledArr(options)
     console.log(options)
   }  
   return (
@@ -91,19 +91,3 @@ function Quiz(props) {
 
 export default Quiz;
 
-    /* { responseData === null ? <div>No data found</div>: 
-        <>
-        <div>
-        Q.{parse(responseData.data.results[questionNum].question)}
-        </div>
-        <div>
-        <Options 
-            options={options} 
-            clickHandler={clickHandler}    
-            result={result}
-        />
-        {result !== '' ? result ? <Result.Success score={score} />: <Result.Failure score={score} />: null}
-        <Button clicked={nextBtnClickHandler} />                
-        </div>
-        </>
-    } */
