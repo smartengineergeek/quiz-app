@@ -8,6 +8,7 @@ import Button from '../components/Button'
 import * as Result from '../components/Result'
 import './style.css';
 import getShuffledArr from '../commonFunctions/shuffle';
+import { Validate } from '../utils';
 
 function Quiz(props) {
   const [questionNum, setQuestionNum] = useState(0);
@@ -23,6 +24,7 @@ function Quiz(props) {
       }
       fetchData();
   }, []);
+  
   function clickHandler(isCorrect){
     if(isCorrect)  {
       setResult(true);
@@ -35,17 +37,22 @@ function Quiz(props) {
     jQuery('#id3').find('.option-text').addClass('success');
     //jQuery('.options').addClass('no-click');
   } 
+
   function nextBtnClickHandler(){
+    console.log("nextBtn questionNum ", questionNum);
     //jQuery('.options').removeClass('no-click');
-    if(questionNum === 11)  window.location.href='/';
-    else {
+    if(questionNum === 9){
+      localStorage.setItem("totalScore", score);
+      props.history.push("/total-score");
+    }else {
       setQuestionNum(questionNum+1);
       setResult('');
     }
   }
+  
   let options = [];
-  if(responseData !== null){
-    debugger;
+  if(Validate(responseData) && Validate(responseData.data) && Validate(responseData.data.results)){
+    // debugger;
     console.log(responseData.data.results.length)
     options.push({"id":"id3", "isCorrect": true, "value": responseData.data.results[questionNum].correct_answer});
     responseData.data.results[questionNum].incorrect_answers.forEach((datum, index) => {
@@ -53,13 +60,19 @@ function Quiz(props) {
       options.push(option);
     })
     options = getShuffledArr(options)
-    console.log(options)
   }  
   return (
     <div className="quiz-app">
        { responseData === null ? <div>No data found</div>: 
       <div className="main-box">
         <div className="question-container">
+          <div className="ques-score-board">
+            <ul>
+              <li>Attempted: {questionNum}</li>
+              <li>Unattempted: {10-questionNum}</li>
+              <li>Score: {score}</li>
+            </ul>
+          </div>
           <div className="ques-num">Question {questionNum+1} / {responseData.data.results.length}</div>
           <div className="ques-text">
             {parse(responseData.data.results[questionNum].question)}            

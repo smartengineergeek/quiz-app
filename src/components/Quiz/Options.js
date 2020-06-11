@@ -18,6 +18,7 @@ const Options = props => {
         <div className="options">
             {props.options.map((option, index) => {
                 let uniqueNumber = uuidv4();             
+                console.log("option ", option);
                 return( <Option key={uniqueNumber} index={index} option={option} clickHandler={props.clickHandler} />)
             })
             }

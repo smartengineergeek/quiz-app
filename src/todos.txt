@@ -1,0 +1,2 @@
+- responsive home page - done
+- responsive quiz page on mobile

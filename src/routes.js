@@ -3,12 +3,13 @@ import { Route, Switch } from 'react-router-dom';
 
 import Home from './containers/Home';
 import Quiz from './containers/Quiz';
-// import Test from './containers/Test'
+import TotalScore from './components/TotalScore/TotalScore';
 
-const Routes = (props) => (
+const Routes = () => (
     <Switch>
         <Route exact path="/"  component={Home} />
         <Route path="/quiz"  component={Quiz} />
+        <Route path="/total-score" component={TotalScore} />
     </Switch>
 )
 

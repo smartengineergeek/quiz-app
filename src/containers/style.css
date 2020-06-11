@@ -1,5 +1,22 @@
-.quiz-app .main-box{
+.main-container{
+    background-color: lightgray;
     height: 300px;
+    width: 30%;
+    margin:auto;
+    position:absolute;
+    top:0;bottom:0; 
+    left:0;right:0;    
+    max-width:100%;
+    max-height:100%;
+    overflow:auto;
+}
+@media only screen and (max-width: 500px){
+    .main-container{
+        width: 70%;
+    }
+}
+.quiz-app .main-box{
+    height: 400px;
     width: 1000px;
     border: solid 1px lightgray;
     /* margin: 0 auto; */
@@ -8,7 +25,7 @@
     position: fixed;
 }
 .quiz-app .question-container{
-    height: 50px;
+    height: 100px;
     width: 900px;
     color: #fff;
     background-color: blueviolet;
@@ -81,4 +98,8 @@
 }
 .quiz-app .no-click{
     pointer-events: none;
+}
+.ques-score-board ul{
+    display: flex;
+    justify-content: space-evenly;
 }
