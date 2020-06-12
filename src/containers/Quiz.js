@@ -39,7 +39,6 @@ function Quiz(props) {
   } 
 
   function nextBtnClickHandler(){
-    console.log("nextBtn questionNum ", questionNum);
     //jQuery('.options').removeClass('no-click');
     if(questionNum === 9){
       localStorage.setItem("totalScore", score);
@@ -52,8 +51,6 @@ function Quiz(props) {
   
   let options = [];
   if(Validate(responseData) && Validate(responseData.data) && Validate(responseData.data.results)){
-    // debugger;
-    console.log(responseData.data.results.length)
     options.push({"id":"id3", "isCorrect": true, "value": responseData.data.results[questionNum].correct_answer});
     responseData.data.results[questionNum].incorrect_answers.forEach((datum, index) => {
       let option = { "id": "id"+index, "isCorrect": false, "value": datum}
