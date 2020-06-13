@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import parse from 'html-react-parser';
 import jQuery from 'jquery'
+import Loader from 'react-loader-spinner';
+import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 
 import fetchService from '../services/fetchService'
 import Options from '../components/Quiz/Options'
@@ -12,15 +14,20 @@ import { Validate } from '../utils';
 
 function Quiz(props) {
   const [questionNum, setQuestionNum] = useState(0);
-  const [responseData, setResponseData] = useState(null);
+  const [responseData, setResponseData] = useState([]);
+  const [options, setOptions] = useState([]);
   const [result, setResult] = useState('');
   const [score, setScore] = useState(0);
+
   useEffect(() => {
+      let responseDataArr = [];
       async function fetchData(){
         let searchParams = new URLSearchParams(props.location.search);  
         let id = searchParams.get('id');      
         let data = await fetchService(id);
-        setResponseData(data)
+        responseDataArr = data.data.results;
+        setResponseData(responseDataArr)
+        getOptions(responseDataArr);
       }
       fetchData();
   }, []);
@@ -35,10 +42,16 @@ function Quiz(props) {
     jQuery('#id3').find('.symbol').addClass('success');
     jQuery('#id1, #id2, #id0').find('.option-text').addClass('failure');
     jQuery('#id3').find('.option-text').addClass('success');
-    //jQuery('.options').addClass('no-click');
+    jQuery('.options').addClass('no-click');
   } 
 
   function nextBtnClickHandler(){
+    jQuery('#id1, #id2, #id0').find('.symbol').removeClass('success failure');
+    jQuery('#id1, #id2, #id0').find('.option-text').removeClass('success failure');
+    jQuery('#id3').find('.symbol').removeClass('success failure');
+    jQuery('#id3').find('.option-text').removeClass('success failure');
+    jQuery('.options').removeClass('no-click');
+
     //jQuery('.options').removeClass('no-click');
     if(questionNum === 9){
       localStorage.setItem("totalScore", score);
@@ -46,21 +59,25 @@ function Quiz(props) {
     }else {
       setQuestionNum(questionNum+1);
       setResult('');
+      getOptions(responseData);
     }
   }
   
-  let options = [];
-  if(Validate(responseData) && Validate(responseData.data) && Validate(responseData.data.results)){
-    options.push({"id":"id3", "isCorrect": true, "value": responseData.data.results[questionNum].correct_answer});
-    responseData.data.results[questionNum].incorrect_answers.forEach((datum, index) => {
-      let option = { "id": "id"+index, "isCorrect": false, "value": datum}
-      options.push(option);
-    })
-    options = getShuffledArr(options)
-  }  
+  function getOptions(responseData){
+    let optionsArr = [];
+    if(Validate(responseData)){
+        optionsArr.push({"id":"id3", "isCorrect": true, "value": responseData[questionNum].correct_answer});
+      responseData[questionNum].incorrect_answers.forEach((datum, index) => {
+        optionsArr.push({ "id": "id"+index, "isCorrect": false, "value": datum });
+      })
+      optionsArr = getShuffledArr(optionsArr);
+      setOptions(optionsArr);
+    }        
+  }
+
   return (
     <div className="quiz-app">
-       { responseData === null ? <div>No data found</div>: 
+       { (Validate(responseData)) ?  
       <div className="main-box">
         <div className="question-container">
           <div className="ques-score-board">
@@ -70,9 +87,9 @@ function Quiz(props) {
               <li>Score: {score}</li>
             </ul>
           </div>
-          <div className="ques-num">Question {questionNum+1} / {responseData.data.results.length}</div>
+          <div className="ques-num">Question {questionNum+1} / {responseData.length}</div>
           <div className="ques-text">
-            {parse(responseData.data.results[questionNum].question)}            
+            {parse(responseData[questionNum].question)}            
           </div>
         </div>  
         <Options 
@@ -94,7 +111,16 @@ function Quiz(props) {
           : null}                                    
         </div>
       </div>
-      }
+    :      
+    <div className="quiz-loader">
+    <Loader
+     type="Puff"
+     color="#00BFFF"
+     height={100}
+     width={100}
+  />
+  </div>  
+    }
     </div>
   );
 }
